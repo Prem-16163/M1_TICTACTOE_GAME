@@ -1,5 +1,22 @@
-![alt text](https://www.google.com/url?sa=i&url=https%3A%2F%2Farxiv.org%2Fpdf%2F1406.5177&psig=AOvVaw2jyHDeEmjUwYHwHPCZs0U1&ust=1644724451916000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCLDQ4pyi-fUCFQAAAAAdAAAAABAH)
-![alt text](http://url/to/img.png)
-![alt text](http://url/to/img.png)
-![alt text](http://url/to/img.png)
-![alt text](http://url/to/img.png)
+# Design
+
+## High Level Design 
+
+### Behavioral Usecase Diagram
+
+![Architecture](https://github.com/ArnoldKevinDesouza/Tic-Tac-Toe/blob/main/6_Media/usecase%20HL.png?raw=true)
+
+### Structural Diagram
+
+![Architecture](https://github.com/ArnoldKevinDesouza/Tic-Tac-Toe/blob/main/6_Media/high%20level%20structural.png?raw=true)
+
+## Low Level Design 
+
+### Behavioral Usecase Diagram
+
+![Architecture](https://github.com/ArnoldKevinDesouza/Tic-Tac-Toe/blob/main/6_Media/structural%20HL.png?raw=true)
+
+
+### Structural Diagram
+
+![Architecture](https://github.com/ArnoldKevinDesouza/Tic-Tac-Toe/blob/main/6_Media/structural%20high%20level.png?raw=true)
