@@ -12,31 +12,31 @@
 * Then it checks if anyone has won yet.
 * If not, then it again checks if it is a draw situation.
 
-## SWOT ANALYSIS
+# SWOT ANALYSIS
 
 # 4W&#39;s and 1&#39;H
 
-## Who:
+# Who:
 * Anyone can play this game. 
 * Also, businesses can use it.
 
-## What:
+# What:
 * This game is for recreational purposes. 
 * Businesses can also use is for development of strategies as there are many possible outcomes in this game.
 
-## When:
+# When:
 * This game can be played whenever you are feeling bored or want to figure out ways, outcomes and situations of this game.
 
-## Where:
+# Where:
 * A variety of websites make a simple tic tac toe game available.
 * Also used in businesses and organizations.
 
 
-## How:
+# How:
 * It can be implemented in a business strategy to help improve it. Business strategy is about moving swiftly and getting an advantageous position. In Tic-Tac-Toe, this is pretty straight forward: The first mover can choose the best position. In business, it is a bit more complicated. Even if business strategy is more complex, the principle is the same: Move swiftly when the time comes, go for an advantageous position.
 
 # Detail requirements
-## High Level Requirements: 
+# High Level Requirements: 
 | ID | Description | 
 | ----- | ----- | 
 | HR01 | User shall be able to choose 'X' to play |
@@ -45,7 +45,7 @@
 | HR04 | User shall lose|
 | HR05 | User shall win|
 | HR06 | User shall end up in a Draw situation|
-##  Low level Requirements:
+#  Low level Requirements:
  
 | ID | Description | HLR ID |
 | ------ | --------- | ------ |
