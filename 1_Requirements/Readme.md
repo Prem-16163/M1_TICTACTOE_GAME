@@ -1,7 +1,5 @@
-# Requirements
-## Introduction
- * Tic-tac-toe, also known as noughts and crosses, or Xs and Os/“X’y O’sies”, is a game for two players, X and O, who take turns marking the spaces in a 3×3 grid. The player who succeeds in placing three of their marks in a diagonal, horizontal, or vertical row is the winner. It is a solved game with a forced draw assuming best play from both players. It is usually played on paper but as the technology evolved, here is a digital version of it.
- * This topic was chosen because it gives me an opportunity to implement and understand multiple C programming concepts.
+* Tic-tac-toe is a simple 1v1 game with 3x3 square having 9 boxes to be filled with X's and O's making an identical row or a coloumn or diagonal with either X or O to win.
+* 
 ### Explanation:
 * The game starts giving you three input options(1, 2, 3):
     * 1 means you play using 'X'.
