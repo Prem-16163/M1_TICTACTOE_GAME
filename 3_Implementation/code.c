@@ -1,111 +1,277 @@
-#include <stdio.h>
- 
-char box[10]={'0','1','2','3','4','5','6','7','8','9'};
-void creating_board();
-void marking_board(int, char);
-int check_for_win();
-int main()
+
+#include "game_operations.h"
+
+int board[10] = {2,2,2,2,2,2,2,2,2,2};
+int turn = 1,flag = 0;
+int player,comp;
+
+void menu();
+void go(int n);
+void start_game();
+
+void draw_board();
+void player_first();
+void put_X_O(char ch,int pos);
+COORD coord= {0,0}; // this is global variable
+//center of axis is set to the top left cornor of the screen
+void gotoxy(int x,int y)
 {
-    int choice,player=1,i;
-    char mark;
-    do
-    {
-        creating_board();
-        player= (player % 2) ? 1: 2;
- 
-        printf("Player %d, enter a number: ",player);
-        scanf("%d",&choice);
- 
-        mark = (player==1) ? 'X' : 'O';
-        marking_board(choice,mark);
- 
-        i=check_for_win();
-        player++;
- 
-    }while(i == -1);
- 
-    creating_board();
- 
-    if(i==1)
-        printf("Player %d  you have won the game",--player);
-    else
-        printf("<-------Draw------>");
- 
- 
-    return 0;
-}
-void creating_board()
-{
-    
-    printf("\n\n\tTic Tac Toe\n\n");
-    printf("Player 1 (X) -- Player 2 (O)\n\n");
-    printf("     |     |     \n");
-    printf(" %c   | %c   | %c   \n",box[1],box[2],box[3]);
-    printf("_____|_____|_____\n");
-    printf("     |     |     \n");
-    printf(" %c   | %c   | %c   \n",box[4],box[5],box[6]);
-    printf("_____|_____|_____\n");
-    printf("     |     |     \n");
-    printf(" %c   | %c   | %c   \n",box[7],box[8],box[9]);
-    printf("_____|_____|_____\n");
-    printf("     |     |     \n");
- 
- 
-}
-void marking_board( int choice, char mark)
-{
-    if(choice==1 && box[1]=='1')
-        box[1]=mark;
-    else if(choice==2 && box[2]=='2')
-        box[2]=mark;
-    else if(choice==3 && box[3]=='3')
-        box[3]=mark;
-    else if(choice==4 && box[4]=='4')
-        box[4]=mark;
-    else if (choice==5 && box[5]=='5')
-        box[5]=mark;
-    else if (choice==6 && box[6]=='6')
-        box[6]=mark;
-    else if (choice==7 && box[7]=='7')
-        box[7]=mark;
-    else if (choice==8 && box[8]=='8')
-        box[8]=mark;
-    else if (choice==9 && box[9]=='9')
-        box[9]=mark;
-    else
-    {
-        printf("Invalid move");
-    }
-}
- 
-int check_for_win()
-{
-    if(box[1]==box[2] && box[2]==box[3])
-        return 1;
-    else if(box[4]==box[5] && box[5]==box[6])
-        return 1;                                   // horizontal match
-    else if (box[7]==box[8] && box[8]==box[9])
-        return 1;
- 
-    else if (box[1]==box[4] && box[4]==box[7])
-        return 1;
-    else if(box[2]==box[5] && box[5]==box[8])           // vertical match
-        return 1;
-    else if(box[3]==box[6] && box[6]==box[9])
-        return 1;
- 
- 
-    else if(box[1]==box[5] && box[5]==box[9])
-        return 1;
-    else if(box[3]==box[5] && box[5]==box[7])           //diagonal match
-        return 1;
- 
-    else if(box[1]!= '1' && box[2]!= '2' && box[3]!= '3' && box[4]!= '4'&& box[5]!= '5' && box[6]!= '6'&& box[7]!= '7' && box[8]!= '8' && box[9]!='9')  //no match
-        return 0;
- 
-    else
-        return -1;
- 
- 
+    coord.X=x;
+    coord.Y=y;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),coord);
 }
 
+
+void main()
+{
+    system("cls");
+    menu();
+    getch();
+
+}
+
+void menu()
+{
+    int choice;
+    system("cls");
+    printf("\n--------MENU--------");
+    printf("\n1 : Play with X (first turn) ");
+    printf("\n2 : Play with O (second turn) ");
+    printf("\n3 : Exit");
+    printf("\nEnter your choice:>");
+    scanf("%d",&choice);
+    turn = 1;
+    switch (choice)
+    {
+    case 1:
+        player = 1;
+        comp = 0;
+        player_first();
+        break;
+    case 2:
+        player = 0;
+        comp = 1;
+        start_game();
+        break;
+    case 3:
+        exit(1);
+    default:
+        menu();
+    }
+}
+
+int make2()
+{
+    if(board[5] == 2)
+        return 5;
+    if(board[2] == 2)
+        return 2;
+    if(board[4] == 2)
+        return 4;
+    if(board[6] == 2)
+        return 6;
+    if(board[8] == 2)
+        return 8;
+    return 0;
+}
+
+int make4()
+{
+    if(board[1] == 2)
+        return 1;
+    if(board[3] == 2)
+        return 3;
+    if(board[7] == 2)
+        return 7;
+    if(board[9] == 2)
+        return 9;
+    return 0;
+}
+
+int posswin(int p)
+{
+// p==1 then X   p==0  then  O
+    int i;
+    int check_val,pos;
+
+    if(p == 1)
+        check_val = 18;
+    else
+        check_val = 50;
+
+    i = 1;
+    while(i<=9)//row check
+    {
+        if(board[i] * board[i+1] * board[i+2] == check_val)
+        {
+            if(board[i] == 2)
+                return i;
+            if(board[i+1] == 2)
+                return i+1;
+            if(board[i+2] == 2)
+                return i+2;
+        }
+        i+=3;
+    }
+
+    i = 1;
+    while(i<=3)//column check
+    {
+        if(board[i] * board[i+3] * board[i+6] == check_val)
+        {
+            if(board[i] == 2)
+                return i;
+            if(board[i+3] == 2)
+                return i+3;
+            if(board[i+6] == 2)
+                return i+6;
+        }
+        i++;
+    }
+
+    if(board[1] * board[5] * board[9] == check_val)
+    {
+        if(board[1] == 2)
+            return 1;
+        if(board[5] == 2)
+            return 5;
+        if(board[9] == 2)
+            return 9;
+    }
+
+    if(board[3] * board[5] * board[7] == check_val)
+    {
+        if(board[3] == 2)
+            return 3;
+        if(board[5] == 2)
+            return 5;
+        if(board[7] == 2)
+            return 7;
+    }
+    return 0;
+}
+
+void go(int n)
+{
+    if(turn % 2)
+        board[n] = 3;
+    else
+        board[n] = 5;
+    turn++;
+}
+
+void player_first()
+{
+    int pos;
+
+    check_draw( turn);
+    draw_board();
+    gotoxy(30,18);
+
+    printf("'1' denotes the top left box, '5' denotes the centre and so on.\n ");
+    printf("Your Turn :> ");
+    scanf("%d",&pos);
+
+    if(board[pos] != 2)
+        player_first();
+
+    if(pos == posswin(player))
+    {
+        go(pos);
+        draw_board();
+        gotoxy(30,20);
+        //textcolor(128+RED);
+        printf("Player Wins");
+        getch();
+        exit(0);
+    }
+
+    go(pos);
+    draw_board();
+    start_game();
+}
+
+void start_game()
+{
+// p==1 then X   p==0  then  O
+    if(posswin(comp))
+    {
+        go(posswin(comp));
+        flag = 1;
+    }
+    else if(posswin(player))
+        go(posswin(player));
+    else if(make2())
+        go(make2());
+    else
+        go(make4());
+    draw_board();
+
+    if(flag)
+    {
+        gotoxy(30,20);
+        //textcolor(128+RED);
+        printf("Computer wins");
+        getch();
+    }
+    else
+        player_first();
+}
+
+//deleted check_draw
+
+
+
+void draw_board()
+{
+    int j;
+
+    for(j=9; j<17; j++)
+    {
+        gotoxy(35,j);
+        printf("|       |");
+    }
+    gotoxy(28,11);
+    printf("-----------------------");
+    gotoxy(28,14);
+    printf("-----------------------");
+
+    for(j=1; j<10; j++)
+    {
+        if(board[j] == 3)
+            put_X_O('X',j);
+        else if(board[j] == 5)
+            put_X_O('O',j);
+    }
+}
+
+void put_X_O(char ch,int pos)
+{
+    int m;
+    int x = 31, y = 10;
+
+    m = pos;
+
+    if(m > 3)
+    {
+        while(m > 3)
+        {
+            y += 3;
+            m -= 3;
+        }
+    }
+    if(pos % 3 == 0)
+        x += 16;
+    else
+    {
+        pos %= 3;
+        pos--;
+        while(pos)
+        {
+            x+=8;
+            pos--;
+        }
+    }
+    gotoxy(x,y);
+    printf("%c",ch);
+}
