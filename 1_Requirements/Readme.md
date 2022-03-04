@@ -1,3 +1,4 @@
+###INTRODUCTION
 * Tic-tac-toe is a simple 1v1 game with 3x3 square having 9 boxes to be filled with X's and O's making an identical row or a coloumn or diagonal with either X or O to win.
 ### Explanation:
 * The game starts giving you three input options(1, 2, 3):
